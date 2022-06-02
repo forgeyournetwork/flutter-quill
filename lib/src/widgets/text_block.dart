@@ -205,6 +205,7 @@ class EditableTextBlock extends StatelessWidget {
       return QuillNumberPoint(
         index: index,
         indentLevelCounts: indentLevelCounts,
+        offset: offset,
         count: count,
         style: defaultStyles!.code!.style
             .copyWith(color: defaultStyles.code!.style.color!.withOpacity(0.4)),
