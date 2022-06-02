@@ -29,13 +29,12 @@ class QuillNumberPoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var s = (index + (offset['active'] ? offset['value'] : 0)).toString();
+    var s = (index + (offset['active'] ? offset['offset'] : 0)).toString();
     int? level = 0;
     if (!attrs.containsKey(Attribute.indent.key) &&
         !indentLevelCounts.containsKey(1)) {
       indentLevelCounts.clear();
-      offset['value'] = (offset['value'] as int) + 1;
-      offset['active'] = false;
+      offset['counter'] = (offset['counter'] as int) + 1;
       return Container(
         alignment: AlignmentDirectional.topEnd,
         width: width,
@@ -44,6 +43,7 @@ class QuillNumberPoint extends StatelessWidget {
       );
     }
     offset['active'] = true;
+    offset['offset'] = offset['counter'];
     if (attrs.containsKey(Attribute.indent.key)) {
       level = attrs[Attribute.indent.key]!.value;
     } else {
