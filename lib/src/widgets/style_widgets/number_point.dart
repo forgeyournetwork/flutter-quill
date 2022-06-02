@@ -34,7 +34,7 @@ class QuillNumberPoint extends StatelessWidget {
     if (!attrs.containsKey(Attribute.indent.key) &&
         !indentLevelCounts.containsKey(1)) {
       indentLevelCounts.clear();
-      offset['value'] = offset['value']++;
+      offset['value'] = (offset['value'] as int) + 1;
       offset['active'] = false;
       return Container(
         alignment: AlignmentDirectional.topEnd,
