@@ -64,8 +64,6 @@ class QuillNumberPoint extends StatelessWidget {
     } else if (level % 3 == 2) {
       // i. ii. iii. ...
       s = _intToRoman(count);
-    } else {
-      s = (count + (offset['active'] ? offset['value'] : 0)).toString();
     }
     // level % 3 == 0 goes back to 1. 2. 3.
 
