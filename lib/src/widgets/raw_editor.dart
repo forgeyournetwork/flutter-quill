@@ -433,6 +433,7 @@ class RawEditorState extends EditorState
   List<Widget> _buildChildren(Document doc, BuildContext context) {
     final result = <Widget>[];
     final indentLevelCounts = <int, int>{};
+    final offset = <String, dynamic>{'value': 0, 'active': false};
     for (final node in doc.root.children) {
       if (node is Line) {
         final editableTextLine = _getEditableTextLineFromNode(node, context);
@@ -459,6 +460,7 @@ class RawEditorState extends EditorState
             onLaunchUrl: widget.onLaunchUrl,
             cursorCont: _cursorCont,
             indentLevelCounts: indentLevelCounts,
+            offset: offset,
             onCheckboxTap: _handleCheckboxTap,
             readOnly: widget.readOnly,
             customStyleBuilder: widget.customStyleBuilder);

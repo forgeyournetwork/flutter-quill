@@ -7,6 +7,7 @@ class QuillNumberPoint extends StatelessWidget {
   const QuillNumberPoint({
     required this.index,
     required this.indentLevelCounts,
+    required this.offset,
     required this.count,
     required this.style,
     required this.width,
@@ -18,6 +19,7 @@ class QuillNumberPoint extends StatelessWidget {
 
   final int index;
   final Map<int?, int> indentLevelCounts;
+  final Map<String, dynamic> offset;
   final int count;
   final TextStyle style;
   final double width;
@@ -27,11 +29,13 @@ class QuillNumberPoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var s = index.toString();
+    var s = (index + (offset['active'] ? offset['value'] : 0)).toString();
     int? level = 0;
     if (!attrs.containsKey(Attribute.indent.key) &&
         !indentLevelCounts.containsKey(1)) {
       indentLevelCounts.clear();
+      offset['value'] = offset['value']++;
+      offset['active'] = false;
       return Container(
         alignment: AlignmentDirectional.topEnd,
         width: width,
@@ -39,6 +43,7 @@ class QuillNumberPoint extends StatelessWidget {
         child: Text(withDot ? '$s.' : s, style: style),
       );
     }
+    offset['active'] = true;
     if (attrs.containsKey(Attribute.indent.key)) {
       level = attrs[Attribute.indent.key]!.value;
     } else {
@@ -53,13 +58,14 @@ class QuillNumberPoint extends StatelessWidget {
     final count = (indentLevelCounts[level] ?? 0) + 1;
     indentLevelCounts[level] = count;
 
-    s = count.toString();
     if (level % 3 == 1) {
       // a. b. c. d. e. ...
       s = _toExcelSheetColumnTitle(count);
     } else if (level % 3 == 2) {
       // i. ii. iii. ...
       s = _intToRoman(count);
+    } else {
+      s = (count + (offset['active'] ? offset['value'] : 0)).toString();
     }
     // level % 3 == 0 goes back to 1. 2. 3.
 

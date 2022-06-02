@@ -62,6 +62,7 @@ class EditableTextBlock extends StatelessWidget {
       required this.linkActionPicker,
       required this.cursorCont,
       required this.indentLevelCounts,
+      required this.offset,
       required this.onCheckboxTap,
       required this.readOnly,
       this.onLaunchUrl,
@@ -85,6 +86,7 @@ class EditableTextBlock extends StatelessWidget {
   final CustomStyleBuilder? customStyleBuilder;
   final CursorCont cursorCont;
   final Map<int, int> indentLevelCounts;
+  final Map<String, dynamic> offset;
   final Function(int, bool) onCheckboxTap;
   final bool readOnly;
 
@@ -162,6 +164,7 @@ class EditableTextBlock extends StatelessWidget {
       return QuillNumberPoint(
         index: index,
         indentLevelCounts: indentLevelCounts,
+        offset: offset,
         count: count,
         style: defaultStyles!.leading!.style,
         attrs: attrs,
