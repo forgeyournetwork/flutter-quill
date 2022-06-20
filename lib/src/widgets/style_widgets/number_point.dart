@@ -62,8 +62,9 @@ class QuillNumberPoint extends StatelessWidget {
       offset['active'] = false;
     }
 
-    if (level == 0 || indentLevelCounts.length == 1) {
+    if (level == 0) {
       // level % 3 == 0 goes back to 1. 2. 3.
+      s = (index + offset['offset']).toString();
       offset['active'] = true;
       offset['offset'] = offset['counter'];
       offset['counter'] = (offset['counter'] as int) + 1;
