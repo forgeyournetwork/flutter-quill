@@ -42,8 +42,7 @@ class QuillNumberPoint extends StatelessWidget {
         child: Text(withDot ? '$s.' : s, style: style),
       );
     }
-    offset['active'] = true;
-    offset['offset'] = offset['counter'];
+
     if (attrs.containsKey(Attribute.indent.key)) {
       level = attrs[Attribute.indent.key]!.value;
     } else {
@@ -51,6 +50,7 @@ class QuillNumberPoint extends StatelessWidget {
       // supposed to be "2."
       indentLevelCounts[0] = 1;
     }
+
     if (indentLevelCounts.containsKey(level! + 1)) {
       // last visited level is done, going up
       indentLevelCounts.remove(level + 1);
@@ -58,16 +58,18 @@ class QuillNumberPoint extends StatelessWidget {
     final count = (indentLevelCounts[level] ?? 0) + 1;
     indentLevelCounts[level] = count;
 
-    if (level % 3 == 1) {
+    if (level == 0) {
+      // level % 3 == 0 goes back to 1. 2. 3.
+      offset['active'] = true;
+      offset['offset'] = offset['counter'];
+      offset['counter'] = (offset['counter'] as int) + 1;
+    } else if (level % 3 == 1) {
       // a. b. c. d. e. ...
       s = _toExcelSheetColumnTitle(count);
     } else if (level % 3 == 2) {
       // i. ii. iii. ...
       s = _intToRoman(count);
-    } else {
-      offset['counter'] = (offset['counter'] as int) + 1;
     }
-    // level % 3 == 0 goes back to 1. 2. 3.
 
     return Container(
       alignment: AlignmentDirectional.topEnd,
