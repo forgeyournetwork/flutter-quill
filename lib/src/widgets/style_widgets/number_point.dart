@@ -68,15 +68,14 @@ class QuillNumberPoint extends StatelessWidget {
       offset['offset'] = offset['counter'];
       s = (index + offset['offset']).toString();
       offset['counter'] = (offset['counter'] as int) + 1;
-      if (level >= 3) {
-        s = count.toString();
-      }
     } else if (level % 3 == 1) {
       // a. b. c. d. e. ...
       s = _toExcelSheetColumnTitle(count);
     } else if (level % 3 == 2) {
       // i. ii. iii. ...
       s = _intToRoman(count);
+    } else if (level >= 3) {
+      s = count.toString();
     }
 
     return Container(
